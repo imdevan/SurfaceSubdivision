@@ -18,7 +18,7 @@
 			
 			'+' is a combination of 'L' + 'A'
 
-			The useres should be able to zoom by dragging the right mouse button 
+			The users should be able to zoom by dragging the right mouse button 
 				as well as rotate the shape (both horizontally and vvertically)
 
 	Notes:
@@ -27,3 +27,19 @@
 		p. 210 in the 7th edition.
 	
  */
+
+#include <stdio.h>
+#include <cstdlib>
+#include <iostream>
+#include <string>
+#include "Object.h"
+using namespace std;
+
+int main(int argc, char** argv)
+{
+	int rvalue;
+	cout << "hi c: \n";
+	cin >> rvalue;
+
+	return rvalue;
+}
