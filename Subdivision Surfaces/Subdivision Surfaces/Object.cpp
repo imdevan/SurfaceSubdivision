@@ -68,15 +68,25 @@ void Object::load(string pFile){
 				break;
 			case'f':
 				lineVector = parse(line, c);
-				/*for (unsigned int i = 0; i < lineVector.size(); i++)
-				cout << lineVector.at(i);*/
-				faceVector.push_back(
-					Face(
-					stoi(lineVector.at(1)),
-					stoi(lineVector.at(2)),
-					stoi(lineVector.at(3)),
-					stoi(lineVector.at(4))
-					)
+
+				// if their were two spaces after 'f':
+				if (lineVector.at(1) == "")
+						faceVector.push_back(
+							Face(
+							stoi(lineVector.at(2)),
+							stoi(lineVector.at(3)),
+							stoi(lineVector.at(4)),
+							stoi(lineVector.at(5))
+							)
+						);
+				else
+					faceVector.push_back(
+						Face(
+							stoi(lineVector.at(1)),
+							stoi(lineVector.at(2)),
+							stoi(lineVector.at(3)),
+							stoi(lineVector.at(4))
+						)
 					);
 				// calc norm of face after adding
 				faceVector.back().setNorm(

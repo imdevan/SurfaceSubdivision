@@ -37,9 +37,12 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-	int rvalue;
-	cout << "hi c: \n";
-	cin >> rvalue;
+	Object obj = Object(argv[1]);
+	cout << obj;
+	//scanConvert(argc, argv, obj);
 
-	return rvalue;
+	string foo;
+	cin >> foo;
+	return 0;
+
 }
