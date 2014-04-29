@@ -39,7 +39,16 @@ vector<string> Object::parse(string& s, char& c){
 	rVector.push_back(temp);// end of line
 	return rVector;
 }
-
+void Object::calculateNormals(){
+	for (int fi = 0; fi < faceVector.size(); fi++)
+		faceVector[fi].setNorm(
+			vertexVector[faceVector[fi].v[0] - 1],
+			vertexVector[faceVector[fi].v[1] - 1],
+			vertexVector[faceVector[fi].v[2] - 1],
+			vertexVector[faceVector[fi].v[3] - 1]
+		);
+		
+}
 void Object::load(string pFile){
 	ifstream the_file;
 
@@ -94,7 +103,8 @@ void Object::load(string pFile){
 				faceVector.back().setNorm(
 					vertexVector.at(faceVector.back().v[0] - 1),
 					vertexVector.at(faceVector.back().v[1] - 1),
-					vertexVector.at(faceVector.back().v[2] - 1)
+					vertexVector.at(faceVector.back().v[2] - 1),
+					vertexVector.at(faceVector.back().v[3] - 1)
 				);
 
 

@@ -49,23 +49,15 @@ v() {
 }
 Face::Face() :
 v() {}
-void Face::setNorm(Vertex v1, Vertex v2, Vertex v3){
+void Face::setNorm(Vertex v1, Vertex v2, Vertex v3, Vertex v4){
 	// calculate the vectors
 	Vertex _v1 = Vertex(v3.x() - v1.x(), v3.y() - v1.y(), v3.z() - v1.z());
-	Vertex _v2 = Vertex(v2.x() - v1.x(), v2.y() - v1.y(), v2.z() - v1.z());
+	Vertex _v2 = Vertex(v4.x() - v2.x(), v4.y() - v2.y(), v4.z() - v2.z());
 
 	// cross multiply vectors to derive normal
 	norm.dir[0] = (_v1.y() * _v2.z()) - (_v1.z() * _v2.y());
 	norm.dir[1] = -((_v2.z() * _v1.x()) - (_v2.x() * _v1.z()));
 	norm.dir[2] = (_v1.x() * _v2.y()) - (_v1.y() * _v2.x());
-
-
-	// convert to screen cordinates?
-	float sw = (ImageW - 1) / 2;
-	float sh1 = (1 - ImageH) / 2;
-	float sh2 = (ImageH - 1) / 2;
-	norm.dir[0] = sw *(1 + norm.x());
-	norm.dir[1] = sh2 * (1 - norm.y());
 	norm.normalize();
 }	
 ostream& operator<<(ostream& os, const Face& f)

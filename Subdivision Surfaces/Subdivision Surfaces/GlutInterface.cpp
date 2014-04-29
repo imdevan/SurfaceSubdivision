@@ -9,15 +9,16 @@
 
 float rotation;	
 Object object;
+SubDivider objSubDivider;
 int downX, downY;
-float sphi = 90.0, stheta = 45.0;
-float sdepth = 10;
-bool leftButton = false, rightButton = false;
+float sphi = 0, stheta = 0;
+float sdepth = 5;
+bool leftButton = false, rightButton = false, showWireFrame = false;
 
 void InitGL(GLvoid)		
 {
 	glShadeModel(GL_FLAT);
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glClearColor(247 / 255.0f, 228 / 255.0f, 190 / 255.0f, 0.0f);
 	glClearDepth(1.0f);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
@@ -27,14 +28,31 @@ void InitGL(GLvoid)
 	glEnable(GL_COLOR_MATERIAL);
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 }
-
+// 247,228,190
 void display(void)
 {
+    // Show wire frame.
+	if (showWireFrame) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	else glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 	// Clear the screen and depth buffer.
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Reset the current modelview matrix.
 	glLoadIdentity();
+
+	//Add positioned light
+	GLfloat lightColor0[] = { 0.3f, 0.0f, 0.0f, 1.0f };
+	GLfloat lightPos0[] = { 4.0f, 1.0f, -8.0f, 1.0f };
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor0);
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPos0);
+
+	//Add directed light
+	GLfloat lightColor1[] = { 1.0f, 1.0f, 1.0f, 1.0f }; //Color (0.5, 0.2, 0.2)
+	//Coming from the direction (-1, 0.5, 0.5)
+	GLfloat lightPos1[] = { -1.0f, 1.0f, 1.0f, 0.0f };
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, lightColor1);
+	glLightfv(GL_LIGHT1, GL_POSITION, lightPos1);
 
 	glPushMatrix();
 
@@ -43,19 +61,6 @@ void display(void)
 	glRotatef(-stheta, 1.0, 0.0, 0.0);
 	glRotatef(-sphi, 0.0, 1.0, 0.0);
 
-
-	//Add positioned light
-	//GLfloat lightColor0[] = { 0.5f, 0.5f, 0.5f, 1.0f }; //Color (0.5, 0.5, 0.5)
-	//GLfloat lightPos0[] = { 4.0f, 0.0f, 8.0f, 0.0f }; //Positioned at (4, 0, 8)
-	//glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor0);
-	//glLightfv(GL_LIGHT0, GL_POSITION, lightPos0);
-
-	//Add directed light
-	GLfloat lightColor1[] = { 0.5f, 0.2f, 0.2f, 1.0f }; //Color (0.5, 0.2, 0.2)
-	//Coming from the direction (-1, 0.5, 0.5)
-	GLfloat lightPos1[] = { 1.0f,	1.0f, 1.0f, 0.0f };
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, lightColor1);
-	glLightfv(GL_LIGHT1, GL_POSITION, lightPos1);
 
 	// Rotate the object on the y and z axis
 	// glRotatef(rotation, 1.0f, 1.0f, 0.0f);
@@ -142,6 +147,21 @@ void keyboard(unsigned char key, int x, int y)
 	case 'Q':
 		exit(0);
 		break;
+	case 'l':
+	case'L':
+		objSubDivider.linearSub(object);
+		break;
+	case 'a':
+	case'A':
+		objSubDivider.average(object);
+		break;
+	case 'W':
+	case'w':
+		if (showWireFrame)
+			showWireFrame = false;
+		else
+			showWireFrame = true;
+		break;
 	default:
 		break;
 	}
@@ -168,7 +188,7 @@ void glutInterface(int argc, char** argv, Object & obj)
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
 	glutInitWindowSize(500, 500);
-	glutCreateWindow("NeHe OpenGL Adaptation");
+	glutCreateWindow("Devan Huapaya - Assignment 6");
 	InitGL();
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);

@@ -32,6 +32,7 @@ struct Vertex{
 	void transformToWC();
 	Vertex(float px, float py, float pz);
 	Vertex();
+	Vertex& operator+=(const Vertex& rhs);
 };
 
 
@@ -44,7 +45,7 @@ struct Face{
 	Norm norm;
 
 
-	void setNorm(Vertex v1, Vertex v2, Vertex v3);
+	void setNorm(Vertex v1, Vertex v2, Vertex v3, Vertex v4);
 	Face(int pv1, int pv2, int pv3, int pv4);
 	Face();
 };

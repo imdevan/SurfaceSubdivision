@@ -19,6 +19,7 @@ public:
 	vector<string> parse(string& s, char& c);
 	Vertex getVertex(int fi, int vi);
 	Face getFace(int i);
+	void calculateNormals();
 
 	Object();
 	Object(ifstream& fin);

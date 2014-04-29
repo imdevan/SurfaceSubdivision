@@ -81,11 +81,13 @@
     <ClCompile Include="GlutInterface.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="ObjectSubdivider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="GlutInterface.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="ObjectSubdivider.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
